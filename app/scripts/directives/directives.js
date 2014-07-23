@@ -13,7 +13,6 @@ angular.module('app.directives', [])
 			zoom: 14
 		};
 
-
 		// initialize the map
 		var initMap = function() {
 			if (map === void 0) {
@@ -96,7 +95,7 @@ angular.module('app.directives', [])
 					'<h5>CHASE</h5>' +
 					'<p>' + val.label + '</br>' + val.address + '</br>' + val.city + ', ' + val.state + ' ' + val.zip + '</p>' +
 					'<span><strong>Location Type:</strong> ' + val.locType.toUpperCase() + '</span>' + '</br>' +
-					'<a href="#">Visit Location Page</a>' + 
+					'<a href="#/details/' + val.name + '">Visit Location Page</a>' + 
 					'</div>';
 				setMarker(map, location, val.title, contentString);
 			});

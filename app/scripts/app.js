@@ -3,8 +3,9 @@
 angular.module('atmBranchLocatorApp', [
     'ngRoute',
     'app.services.chase',
-    'app.services.map',
+    'app.services.localStorage',
     'app.map',
+    'app.details',
     'app.directives'
   ])
 
@@ -15,8 +16,10 @@ angular.module('atmBranchLocatorApp', [
         controller: 'MainCtrl'
       })
       .when('/map', {
-        templateUrl: 'views/map.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/map.html'
+      })
+      .when('/details/:locationName', {
+        templateUrl: 'views/details.html'
       })
       .otherwise({
         redirectTo: '/'
