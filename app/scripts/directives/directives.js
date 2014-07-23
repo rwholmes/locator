@@ -23,6 +23,7 @@ angular.module('app.directives', [])
 					navigator.geolocation.getCurrentPosition(function(position) {
 						mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 						map = new google.maps.Map(element[0], mapOptions);
+						setMarker(map, mapOptions.center, 'User Locaion', 'You are here', 'user');
 					}, function() {
 						handleNoGeolocation(browserSupportFlag);
 					});	
@@ -44,14 +45,18 @@ angular.module('app.directives', [])
 		};    
 
 		// place a marker in the map
-		var setMarker = function(map, position, title, content) {
+		var setMarker = function(map, position, title, content, type) {
 			var marker;
 			var markerOptions = {
 				position: position,
 				map: map,
 				title: title,
-				icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+				icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
 			};
+
+			if (type === 'user') {
+				markerOptions.icon = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			}
 
 			marker = new google.maps.Marker(markerOptions);
 			markers.push(marker); // add marker to markers array
@@ -72,7 +77,6 @@ angular.module('app.directives', [])
 		}
 
 		scope.$watch(function() {
-			// get the locations from scope
 			return scope.chaseLocations;
 		}, function() {
 			// load and display the map
@@ -83,10 +87,12 @@ angular.module('app.directives', [])
 			}
 			markers = [];
 
-			// place markers on map
+			// place user position marker
+			setMarker(map, mapOptions.center, 'User Locaion', 'You are here', 'user');
+			// place chase markers on map
 			angular.forEach(scope.chaseLocations, function(val, key) {
-				var location = new google.maps.LatLng(val.lat, val.lon);
-				setMarker(map, location, val.title, val.content);
+				var location = new google.maps.LatLng(val.lat, val.lng);
+				setMarker(map, location, val.title, val.locType);
 			});
 		});
 	};
