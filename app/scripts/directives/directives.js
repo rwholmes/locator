@@ -5,19 +5,43 @@ angular.module('app.directives', [])
 	var link = function(scope, element, attrs) {
 		var map, infoWindow;
 		var markers = [];
+		var browserSupportFlag =  new Boolean(); // tracks geolocation support
 
 		// map configurations
 		var mapOptions = {
-			center: new google.maps.LatLng(50, 2),
-			zoom: 4
+			center: new google.maps.LatLng(37.775, -122.419), // default location
+			zoom: 14
 		};
+
 
 		// initialize the map
 		var initMap = function() {
 			if (map === void 0) {
-				map = new google.maps.Map(element[0], mapOptions);
+				// geolocation
+				if (navigator.geolocation) {
+					browserSupportFlag = true;
+					navigator.geolocation.getCurrentPosition(function(position) {
+						mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						map = new google.maps.Map(element[0], mapOptions);
+					}, function() {
+						handleNoGeolocation(browserSupportFlag);
+					});	
+				} else {
+					browserSupportFlag = false;
+					handleNoGeolocation(browserSupportFlag);
+				}
 			}
-		}    
+
+			// handle browsers without geolocation or failed geolocation attempt
+			var handleNoGeolocation = function(browserSupportFlag) {
+				if (errorFlag == true) {
+				  alert("Geolocation service failed.");
+				} else {
+				  alert("Your browser doesn't support geolocation. We've placed you in San Francisco.");
+				}
+				map = new google.maps.Map(element[0], mapOptions);
+			};
+		};    
 
 		// place a marker in the map
 		var setMarker = function(map, position, title, content) {
@@ -65,13 +89,6 @@ angular.module('app.directives', [])
 				setMarker(map, location, val.title, val.content);
 			});
 		});
-		// // load and display the map
-		// initMap();
-
-		// // place marekers on map
-		// setMarker(map, new google.maps.LatLng(51.508515, -0.125487), 'London', 'Just some content');
-		// setMarker(map, new google.maps.LatLng(52.370216, 4.895168), 'Amsterdam', 'More content');
-		// setMarker(map, new google.maps.LatLng(48.856614, 2.352222), 'Paris', 'Text here');
 	};
 
 	return {
