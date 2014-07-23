@@ -17,6 +17,24 @@
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <!-- Google Maps -->
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXiKlKOcr5PVKXc23dAre9Gw8w1RUgZA">
+    </script>
+    <!--<script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>-->
+    <!-- End google maps -->
+
   </head>
   <body ng-app="atmBranchLocatorApp">
     <!--[if lt IE 7]>
@@ -54,6 +72,10 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/map.js"></script>
+        <script src="scripts/services/map.js"></script>
+        <script src="scripts/services/chase.js"></script>
+        <script src="scripts/directives/directives.js"></script>
         <!-- endbuild -->
 </body>
 </html>
