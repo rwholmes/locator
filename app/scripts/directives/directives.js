@@ -61,8 +61,8 @@ angular.module('app.directives', [])
 			marker = new google.maps.Marker(markerOptions);
 			markers.push(marker); // add marker to markers array
 
-			google.maps.event.addListener(marker, 'click', function () {
-				console.log('clicked marker, go to branch page');
+			// add info display upon marker mouseover
+			google.maps.event.addListener(marker, 'mouseover', function () {
 				// close window if not undefined
 				if (infoWindow !== void 0) {
 					infoWindow.close();
@@ -92,7 +92,13 @@ angular.module('app.directives', [])
 			// place chase markers on map
 			angular.forEach(scope.chaseLocations, function(val, key) {
 				var location = new google.maps.LatLng(val.lat, val.lng);
-				setMarker(map, location, val.title, val.locType);
+				var contentString = '<div class="info-window">' +
+					'<h5>CHASE</h5>' +
+					'<p>' + val.label + '</br>' + val.address + '</br>' + val.city + ', ' + val.state + ' ' + val.zip + '</p>' +
+					'<span><strong>Location Type:</strong> ' + val.locType.toUpperCase() + '</span>' + '</br>' +
+					'<a href="#">Visit Location Page</a>' + 
+					'</div>';
+				setMarker(map, location, val.title, contentString);
 			});
 		});
 	};
