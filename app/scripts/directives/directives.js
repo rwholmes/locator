@@ -47,13 +47,31 @@ angular.module('app.directives', [])
 			});
 		}
 
-		// load and display the map
-		initMap();
+		scope.$watch(function() {
+			// get the locations from scope
+			return scope.chaseLocations;
+		}, function() {
+			// load and display the map
+			initMap();
+			// clear any markers
+			for (var i=0; i < markers.length; i++) {
+				markers[i].setMap(null);
+			}
+			markers = [];
 
-		// place marekers on map
-		setMarker(map, new google.maps.LatLng(51.508515, -0.125487), 'London', 'Just some content');
-		setMarker(map, new google.maps.LatLng(52.370216, 4.895168), 'Amsterdam', 'More content');
-		setMarker(map, new google.maps.LatLng(48.856614, 2.352222), 'Paris', 'Text here');
+			// place markers on map
+			angular.forEach(scope.chaseLocations, function(val, key) {
+				var location = new google.maps.LatLng(val.lat, val.lon);
+				setMarker(map, location, val.title, val.content);
+			});
+		});
+		// // load and display the map
+		// initMap();
+
+		// // place marekers on map
+		// setMarker(map, new google.maps.LatLng(51.508515, -0.125487), 'London', 'Just some content');
+		// setMarker(map, new google.maps.LatLng(52.370216, 4.895168), 'Amsterdam', 'More content');
+		// setMarker(map, new google.maps.LatLng(48.856614, 2.352222), 'Paris', 'Text here');
 	};
 
 	return {
