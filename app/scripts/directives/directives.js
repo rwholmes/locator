@@ -1,25 +1,25 @@
 angular.module('app.directives', [])
-	
-.directive('myMap', function() {
-	// directive link function
+
+// Google Map Directive	
+.directive('googleMap', function() {
 	var link = function(scope, element, attrs) {
 		var map, infoWindow;
 		var markers = [];
 
-		// map config
+		// map configurations
 		var mapOptions = {
 			center: new google.maps.LatLng(50, 2),
 			zoom: 4
 		};
 
-		// init the map
+		// initialize the map
 		var initMap = function() {
 			if (map === void 0) {
 				map = new google.maps.Map(element[0], mapOptions);
 			}
 		}    
 
-		// place a marker
+		// place a marker in the map
 		var setMarker = function(map, position, title, content) {
 			var marker;
 			var markerOptions = {
@@ -30,9 +30,10 @@ angular.module('app.directives', [])
 			};
 
 			marker = new google.maps.Marker(markerOptions);
-			markers.push(marker); // add marker to array
+			markers.push(marker); // add marker to markers array
 
 			google.maps.event.addListener(marker, 'click', function () {
+				console.log('clicked marker, go to branch page');
 				// close window if not undefined
 				if (infoWindow !== void 0) {
 					infoWindow.close();
@@ -46,9 +47,10 @@ angular.module('app.directives', [])
 			});
 		}
 
-		// show the map and place some markers
+		// load and display the map
 		initMap();
 
+		// place marekers on map
 		setMarker(map, new google.maps.LatLng(51.508515, -0.125487), 'London', 'Just some content');
 		setMarker(map, new google.maps.LatLng(52.370216, 4.895168), 'Amsterdam', 'More content');
 		setMarker(map, new google.maps.LatLng(48.856614, 2.352222), 'Paris', 'Text here');
