@@ -44,12 +44,12 @@ angular.module('app.directives', [])
 		};    
 
 		// place a marker in the map
-		var setMarker = function(map, position, title, content, type) {
+		var setMarker = function(map, position, name, content, type) {
 			var marker;
 			var markerOptions = {
 				position: position,
 				map: map,
-				title: title,
+				title: name,
 				icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
 			};
 
@@ -73,6 +73,11 @@ angular.module('app.directives', [])
 				infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 				infoWindow.open(map, marker);
 			});
+
+			// route to details page on marker click
+			google.maps.event.addListener(marker, 'click', function () {
+				window.location.href = '#/details/' + this.title;
+			});
 		}
 
 		scope.$watch(function() {
@@ -87,7 +92,7 @@ angular.module('app.directives', [])
 			markers = [];
 
 			// place user position marker
-			setMarker(map, mapOptions.center, 'User Locaion', 'You are here', 'user');
+			setMarker(map, mapOptions.center, 'User Location', 'You are here', 'user');
 			// place chase markers on map
 			angular.forEach(scope.chaseLocations, function(val, key) {
 				var location = new google.maps.LatLng(val.lat, val.lng);
@@ -97,7 +102,7 @@ angular.module('app.directives', [])
 					'<span><strong>Location Type:</strong> ' + val.locType.toUpperCase() + '</span>' + '</br>' +
 					'<a href="#/details/' + val.name + '">Visit Location Page</a>' + 
 					'</div>';
-				setMarker(map, location, val.title, contentString);
+				setMarker(map, location, val.name, contentString);
 			});
 		});
 	};
