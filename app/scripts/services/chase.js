@@ -1,7 +1,6 @@
 angular.module('app.services.chase', [])
 
 .service('Chase', ['$http', function($http) {
-	this.chaseLocations = {};
 	this.getLocations = function(currentLat, currentLon) {
 		var lat = 'lat=' + currentLat;
 		var lon = '&lng=' + currentLon;
@@ -12,7 +11,7 @@ angular.module('app.services.chase', [])
 			method: 'GET'
 		})
 		.success(function(data) {
-			console.log('Chase location query success');
+			console.log('Chase location query success: ', data);
 		})
 		.error(function(data) {
 			console.log('Chase location query error');

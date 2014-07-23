@@ -11,7 +11,13 @@
   </div>
   <div class="col-md-6" ng-controller="DetailsCtrl">
     <h3>Chase Location Details</h3>
-    <span>Location: {{ location }}</span>
+    <span><strong>Name:</strong> {{ location.label }}</span></br>
+    <span><strong>Location Type:</strong> {{ location.locType.toUpperCase() }}</span></br></br>
+    <span>{{ location.address }}</br> {{ location.city }}, {{ location.state }} {{ location.zip }}</br></span>
+    <span><strong>Distance:</strong> {{ location.distance }} miles</span>
+    <h4>ATM Information</h4>
+    <span><strong>Services</strong></span></br>
+    <span ng-repeat="service in location.services">{{ service }}</br></span>
   </div>
 </div>
 
