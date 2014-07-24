@@ -119,7 +119,7 @@ body {
 }
 .jumbotron::after {
     content: "";
-    background: url('../images/map-bg.jpg');
+    background: url('/images/map-bg.jpg');
     border-radius: 6px;
     opacity: 0.6;
     top: 0;
