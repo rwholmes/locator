@@ -20,9 +20,15 @@ angular.module('app.directives', [])
 				if (navigator.geolocation) {
 					browserSupportFlag = true;
 					navigator.geolocation.getCurrentPosition(function(position) {
-						mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-						map = new google.maps.Map(element[0], mapOptions);
-						setMarker(map, mapOptions.center, 'User Locaion', 'You are here', 'user');
+						if (scope.location) {
+							mapOptions.center = new google.maps.LatLng(scope.location.lat, scope.location.lng);
+							map = new google.maps.Map(element[0], mapOptions);
+							setMarker(map, mapOptions.center, scope.location.label, scope.location.label);
+						} else {
+							mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							map = new google.maps.Map(element[0], mapOptions);
+							setMarker(map, mapOptions.center, 'User Location', 'You are here', 'user');
+						}
 					}, function() {
 						handleNoGeolocation(browserSupportFlag);
 					});	
@@ -112,7 +118,7 @@ angular.module('app.directives', [])
 
 	return {
 		restrict: 'A',
-		template: '<div id="gmaps"></div>',
+		template: '<div class="gmap"></div>',
 		replace: true,
 		link: link
 	};

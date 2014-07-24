@@ -1,26 +1,38 @@
 <div class="header">
   <ul class="nav nav-pills pull-right">
     <li ><a ng-href="#">Home</a></li>
+    <li ><a ng-href="#/map">Results</a></li>
   </ul>
-  <h3 class="text-muted">CHASE ATM and Branch Locator</h3>
+  <img src="../images/logo107x20.gif" id="logo">
 </div>
 
-<div class="row">
+<div class="row" ng-controller="DetailsCtrl">
   <div class="col-md-6">
-    
+    <div google-map="" class="detail-map"></div>
   </div>
-  <div class="col-md-6" ng-controller="DetailsCtrl">
+  <div class="col-md-6">
     <h3>Chase Location Details</h3>
     <span><strong>Name:</strong> {{ location.label }}</span></br>
     <span><strong>Location Type:</strong> {{ location.locType.toUpperCase() }}</span></br></br>
     <span>{{ location.address }}</br> {{ location.city }}, {{ location.state }} {{ location.zip }}</br></span>
-    <span><strong>Distance:</strong> {{ location.distance }} miles</span>
-    <h4>ATM Information</h4>
-    <span><strong>Services</strong></span></br>
+    <span><strong>Distance:</strong> {{ location.distance }} miles</span></br></br>
+    <span><strong>Services:</strong></span></br>
     <span ng-repeat="service in location.services">{{ service }}</br></span>
   </div>
 </div>
 
+<div class="row marketing detail-search">
+  <div class="col-md-7">
+    <h4>Start a new search</h4>
+    <p>
+      Click the button to the right to begin a new search.
+    </p>
+  </div>
+  <div class="col-md-5">
+    <p><a class="btn btn-primary btn-lg search" ng-href="#/map">Find Locations</a></p>
+  </div>
+</div>
+
 <div class="footer">
-  <p>built by Robert Holmes</p>
+  <p>Built by <a href="https://github.com/rwholmes">Robert Holmes</a> | 2014</p>
 </div>

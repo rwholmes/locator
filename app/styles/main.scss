@@ -90,8 +90,27 @@ body {
 }
 
 /* Google Maps */
-#gmaps {
+.gmap {
     height: 400px;
 }
+.detail-map {
+    height: 300px;
+}
 
+/* Custom Styles */
+.search {
+    margin-top: 10px;
+}
+#logo {
+    padding-top: 10px;
+}
+.header {
+    padding-bottom: 19px;
+}
+.detail-search {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 
