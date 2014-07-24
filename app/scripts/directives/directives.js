@@ -1,7 +1,7 @@
 angular.module('app.directives', [])
 
 // Google Map Directive	
-.directive('googleMap', function() {
+.directive('googleMap', ['$location', function($location) {
 	var link = function(scope, element, attrs) {
 		var map, infoWindow;
 		var markers = [];
@@ -76,7 +76,10 @@ angular.module('app.directives', [])
 
 			// route to details page on marker click
 			google.maps.event.addListener(marker, 'click', function () {
-				window.location.href = '#/details/' + this.title;
+				var title = this.title;
+				scope.$apply(function() {
+					$location.path('/details/' + title);
+				});
 			});
 		}
 
@@ -113,4 +116,4 @@ angular.module('app.directives', [])
 		replace: true,
 		link: link
 	};
-});
+}]);
